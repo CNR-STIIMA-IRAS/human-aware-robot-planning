@@ -1,4 +1,4 @@
-if 0
+if 1
     clear all;
     close all;
     clc;
@@ -15,9 +15,7 @@ if 0
     disp('Load Human Data')
     disp('----------------------------------------------------');
     HumanTaskRepetitions = 9;
-    [ kinect_data, THumanSingleTask ] = prepare_workspace_to_simulation( 'data\march2017\exp1', HumanTaskRepetitions );
-    %[ kinect_data, THumanSingleTask ] = prepare_workspace_to_simulation( 'data\September2016\meshes\file_for_matlab', HumanTaskRepetitions );
-    
+    [ kinect_data, THumanSingleTask ] = prepare_workspace_to_simulation( 'data\\September2016', HumanTaskRepetitions );
 
     figure; 
     for iFrame =1:kinect_data.xvalues.signals.dimensions
@@ -31,7 +29,7 @@ end
 close all
 clear simulation markov robot L
 
-run_sim=1; %to run simulation
+run_sim = 0; %to run simulation
 
 %%%%%%%%%%%%%%%% Config
     %%%%% Robot
@@ -40,16 +38,15 @@ run_sim=1; %to run simulation
     
     
     %%%%% Trajectory data    
-    robot_random_traj = 1;  %1 for random trajecory; 0 for the analysis of an existing traj
+    robot_random_traj = 0;  %1 for random trajecory; 0 for the analysis of an existing traj
+    kuka_iiwa14;
     
     if robot_random_traj == 0
-        kuka_iiwa14;
         calib_sim         = 0;  %to define velocity and speed in simulink for trajecory whose Tnom is given
         traj_files = {'data\\September2016\\traj_torun\\run2\\lbr_iiwa_14_r820_user1_traj17_1_exec.yaml';
                       'data\\September2016\\traj_torun\\run3\\lbr_iiwa_14_r820_user1_traj17_1_exec.yaml';
                       'data\\September2016\\traj_torun\\run4\\lbr_iiwa_14_r820_user1_traj17_1_exec.yaml';
                       'data\\September2016\\traj_torun\\run5\\lbr_iiwa_14_r820_user1_traj17_1_exec.yaml'};
-        %run2: 0.1 0.250
                   
         nStack         = size(traj_files,1);
         if calib_sim == 1
@@ -60,7 +57,6 @@ run_sim=1; %to run simulation
             nTrial         = 100;
         end
     else
-        kuka_iiwa14_6dof;
         nStack = 30;
         nTrial = 60;
         min_dist_2 = 0.250;
@@ -113,7 +109,6 @@ for iStack = 1:nStack
     
     if robot_random_traj == 1
         disp('Generate Trajectory')
-        %[ robot_trajectory_data, robot_trajectory_s, Tnom ] = random_robot_trajectory( bb, v_mean, acc, dec, 'cart' );   
         [ robot_trajectory_data, robot_trajectory_s, Tnom ] = random_robot_trajectory( robot, robot.n-1, robot.n-3, bb, v_mean, acc, dec, 'cart' );   
         min_dist = -0.1;
         start_time = 0.0;
@@ -124,10 +119,6 @@ for iStack = 1:nStack
     else
         disp('Load Trajectory')
         [ robot_trajectory_data, robot_trajectory_s, Tnom ] = robot_trajectory (  traj_files{iStack}, robot, robot.n-1, robot.n-3 );
-%         loc_x = robot_trajectory_data(:,1);
-%         loc_y = robot_trajectory_data(:,2);
-%         robot_trajectory_data(:,1)=loc_y;
-%         robot_trajectory_data(:,2)=-loc_x;
     end
     
     min_dist = min_dist_2;
@@ -214,13 +205,7 @@ for iStack = 1:nStack
             disp([' error:',num2str(markov.Tmean(iStack)-simulation.Tmean(iStack))])
         end
     end
-    save('stefania.mat');
 end
-
-
-
-% plot(1:iStack, markov.Tmean,'-r',1:iStack,markov.Tstd,'-',1:iStack,markov.Tmax,'-', ...
-%      1:iStack, simulation.Tmean,'*',1:iStack,simulation.Tstd,'*',1:iStack,simulation.Tmax,'*')
 
 if run_sim==1
     [~,I] = sort(simulation.Tstd);
@@ -289,13 +274,6 @@ if run_sim==1
     ylabel('Error in expected time estimation [s]') % y-axis label
 
 end
-
-figure()
-plot(1:size(mkchain_numbers.UsedChains,1),mkchain_numbers.UsedChains,1:size(mkchain_numbers.TotChains,1),mkchain_numbers.TotChains)
-%title('Error in expected robot time')
-xlabel('Experiments') % x-axis label
-ylabel('Number of Markov Chains') % y-axis label
-legend('Used','Max')
 
 plot_human_traj;
 
