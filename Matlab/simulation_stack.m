@@ -29,7 +29,7 @@ end
 close all
 clear simulation markov robot L
 
-run_sim = 0; %to run simulation
+run_sim = 1; %to run simulation
 
 %%%%%%%%%%%%%%%% Config
     %%%%% Robot
