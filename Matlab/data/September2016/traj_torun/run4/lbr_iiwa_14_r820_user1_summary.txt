@@ -1,0 +1,23 @@
+Selected trajectories: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+
+TRAJ 		RT[s] 		MRT[s]		LRT[s]		CI[s] 
+0		inf		inf		inf		 [inf, inf]
+5		inf		inf		inf		 [inf, inf]
+10		inf		inf		inf		 [inf, inf]
+15		inf		inf		inf		 [inf, inf]
+20		inf		inf		inf		 [inf, inf]
+25		inf		inf		inf		 [inf, inf]
+30		inf		inf		inf		 [inf, inf]
+35		inf		inf		inf		 [inf, inf]
+40		inf		inf		inf		 [inf, inf]
+45		inf		inf		inf		 [inf, inf]
+50		inf		inf		inf		 [inf, inf]
+55		inf		inf		inf		 [inf, inf]
+60		inf		inf		inf		 [inf, inf]
+65		inf		inf		inf		 [inf, inf]
+70		inf		inf		inf		 [inf, inf]
+75		inf		inf		inf		 [inf, inf]
+80		6.6649		10.725		7.9927		 [6.6649, 10.725]
+
+EUROC - Metric I.I (with min traj): inf
+EUROC - Metric I.I (with last obst traj): inf
