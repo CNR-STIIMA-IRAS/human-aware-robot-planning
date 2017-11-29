@@ -2,7 +2,11 @@
  
 The package gathers all the code developed to cope with the probabilitic modelling of human operators in industrial tasks, and the generation of human-aware trajectories to improve the human robot collaboration efficienfy and safety.
 
-Refero to article:
+Refer to article:
+
+Pellegrinelli, S., Orlandini, A., Pedrocchi, N., Umbrico, A., Tolio, T., Motion planning and scheduling for human and industrial-robot collaboration (2017) CIRP Annals - Manufacturing Technology, 66 (1), pp. 1-4. DOI: 10.1016/j.cirp.2017.04.095
+
+
 
 
 # Overview
